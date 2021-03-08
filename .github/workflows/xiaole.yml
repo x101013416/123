@@ -1,4 +1,4 @@
-name: 待加1
+name: 小乐
 
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
         run: |
           cd ~/123
           npm install
-      - name: '运行 【羊毛赚】'
+      - name: '运行 【小乐】'
         if: env.XL_URL
         run: |
           cd ~/123
