@@ -3,7 +3,7 @@ name: 芝麻
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 8,12 * * *'
+     - cron: '*/15 * * * *'
   watch:
     types: started
 jobs:
