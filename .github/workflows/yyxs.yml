@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.YYXSSPHDL
+        if: env.YYXSSPHD
         run: |
           cd ~/123
           npm install
