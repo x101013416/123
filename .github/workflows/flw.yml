@@ -28,12 +28,12 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.FL_flwURL
+        if: env.FL_flwHEADER
         run: |
           cd ~/123
           npm install
       - name: '运行 【返利网】'
-        if: env.FL_flwURL
+        if: env.FL_flwHEADER
         run: |
           cd ~/123
           node Task/flw.js
