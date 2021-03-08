@@ -2,7 +2,6 @@
 软件名称:阅友小说 商店自己下载
 更新时间：2021-02-28 @肥皂
 脚本说明：阅友小说自动任务
-阅友计时任务最多只有3金币了
 
 
 本脚本以学习为主
@@ -64,6 +63,8 @@ hostname = *.reader.yueyouxs.com
 
 
 const $ = new Env('阅友小说');
+const notify = $.isNode() ? require("./sendNotify") : ``;
+$.message = '';
 let status;
 status = (status = ($.getval("yyxsstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
 const yyxsspurlArr = [], yyxssphdArr = [],yyxsspbodyArr = [],yyxsjsurlArr = [],yyxsjsbodyArr = [],yyxsscurlArr = [],yyxsschdArr = [],yyxscjurlArr = [],yyxscjhdArr = [],yyxsxxurlArr = [],yyxscount = ''
@@ -83,6 +84,150 @@ let yyxsxxurl = $.getdata('yyxsxxurl')
     await yyxsck()
    
   } else {
+   if ($.isNode() && process.env.YYXSXXURL) {
+  COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
+  console.log(
+    `============ cookies分隔符为：${JSON.stringify(
+      COOKIES_SPLIT
+    )} =============\n`
+  );
+  if (
+    process.env.YYXSXXURL &&
+    process.env.YYXSXXURL.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsxxurl = process.env.YYXSXXURL.split(COOKIES_SPLIT);
+  } else {
+    yyxsxxurl = process.env.YYXSXXURL.split();
+  }
+  if (
+    process.env.YYXSSPURL &&
+    process.env.YYXSSPURL.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsspurl = process.env.YYXSSPURL.split(COOKIES_SPLIT);
+  } else {
+    yyxsspurl = process.env.YYXSSPURL.split();
+  }
+  if (
+    process.env.YYXSSPHD &&
+    process.env.YYXSSPHD.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxssphd = process.env.YYXSSPHD.split(COOKIES_SPLIT);
+  } else {
+    yyxssphd = process.env.YYXSSPHD.split();
+  }
+  if (
+    process.env.YYXSSPBODY &&
+    process.env.YYXSSPBODY.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsspbody = process.env.YYXSSPBODY.split(COOKIES_SPLIT);
+  } else {
+    yyxsspbody = process.env.YYXSSPBODY.split();
+  }	
+  if (
+    process.env.YYXSJSURL &&
+    process.env.YYXSJSURL.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsjsurl = process.env.YYXSJSURL.split(COOKIES_SPLIT);
+  } else {
+    yyxsjsurl = process.env.YYXSJSURL.split();
+  }
+  if (
+    process.env.YYXSJSBODY &&
+    process.env.YYXSJSBODY.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsjsbody = process.env.YYXSJSBODY.split(COOKIES_SPLIT);
+  } else {
+    yyxsjsbody = process.env.YYXSJSBODY;
+  }
+  if (
+    process.env.YYXSSCURL &&
+    process.env.YYXSSCURL.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsscurl = process.env.YYXSSCURL.split(COOKIES_SPLIT);
+  } else {
+    yyxsscurl = process.env.YYXSSCURL.split();
+  }
+  if (
+    process.env.YYXSSCHD &&
+    process.env.YYXSSCHD.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxsschd = process.env.YYXSSCHD.split(COOKIES_SPLIT);
+  } else {
+    yyxsschd = process.env.YYXSSCHD.split();
+  }
+  if (
+    process.env.YYXSCJURL &&
+    process.env.YYXSCJURL.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxscjurl = process.env.YYXSCJURL.split(COOKIES_SPLIT);
+  } else {
+    yyxscjurl = process.env.YYXSCJURL.split();
+  }
+  if (
+    process.env.YYXSCJHD &&
+    process.env.YYXSCJHD.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    yyxscjhd = process.env.YYXSCJHD.split(COOKIES_SPLIT);
+  } else {
+    yyxscjhd = process.env.YYXSCJHD.split();
+  }
+	
+  Object.keys(yyxsxxurl).forEach((item) => {
+        if (yyxsxxurl[item]) {
+          yyxsxxurlArr.push(yyxsxxurl[item])
+        }
+    });
+    Object.keys(yyxsspurl).forEach((item) => {
+        if (yyxsspurl[item]) {
+          yyxsspurlArr.push(yyxsspurl[item])
+        }
+    });
+
+Object.keys(yyxssphd).forEach((item) => {
+        if (yyxssphd[item]) {
+          yyxssphdArr.push(yyxssphd[item])
+        }
+    });
+    Object.keys(yyxsspbody).forEach((item) => {
+        if (yyxsspbody[item]) {
+          yyxsspbodyArr.push(yyxsspbody[item])
+        }
+    });
+
+Object.keys(yyxsjsurl).forEach((item) => {
+        if (yyxsjsurl[item]) {
+          yyxsjsurlArr.push(yyxsjsurl[item])
+        }
+    });
+/*    Object.keys(yyxsjsbody).forEach((item) => {
+        if (yyxsjsbody[item]) {
+          yyxsjsbodyArr.push(yyxsjsbody[item])
+        }
+    });	
+*/
+Object.keys(yyxsschd).forEach((item) => {
+        if (yyxsschd[item]) {
+          yyxsschdArr.push(yyxsschd[item])
+        }
+    });
+    Object.keys(yyxsscurl).forEach((item) => {
+        if (yyxsscurl[item]) {
+          yyxsscurlArr.push(yyxsscurl[item])
+        }
+    });	
+
+Object.keys(yyxscjhd).forEach((item) => {
+        if (yyxscjhd[item]) {
+          yyxscjhdArr.push(yyxscjhd[item])
+        }
+    });
+    Object.keys(yyxscjurl).forEach((item) => {
+        if (yyxscjurl[item]) {
+          yyxscjurlArr.push(yyxscjurl[item])
+        }
+    });	
+  	
+} else {
      yyxsspurlArr.push($.getdata('yyxsspurl'))
      yyxssphdArr.push($.getdata('yyxssphd'))
 	yyxsspbodyArr.push($.getdata('yyxsspbody'))
@@ -106,6 +251,8 @@ let yyxsxxurl = $.getdata('yyxsxxurl')
     yyxscjhdArr.push($.getdata(`yyxscjhd${i}`))
     yyxsxxurlArr.push($.getdata(`yyxsxxurl${i}`))
   }
+} 
+
     console.log(`------------- 共${yyxssphdArr.length}个账号-------------\n`)
       for (let i = 0; i < yyxssphdArr.length; i++) {
         if (yyxssphdArr[i]) {
@@ -114,7 +261,7 @@ let yyxsxxurl = $.getdata('yyxsxxurl')
           yyxssphd = yyxssphdArr[i];
 		yyxsspbody = yyxsspbodyArr[i];
 		yyxsjsurl = yyxsjsurlArr[i];
-		yyxsjsbody = yyxsjsbodyArr[i];
+		//yyxsjsbody = yyxsjsbodyArr[i];
           yyxsscurl = yyxsscurlArr[i];
           yyxsschd = yyxsschdArr[i];
           yyxscjurl = yyxscjurlArr[i];
@@ -128,15 +275,18 @@ let yyxsxxurl = $.getdata('yyxsxxurl')
     await yyxssc();
     await $.wait(100);
     
-    }await yyxsjs();
+    }
+	await yyxsjs();
      await yyxssp();
      await yyxscj();
      await yyxsxx();
 
       
   }
-  
-}}
+
+}
+           
+}
 
 })()
   .catch((e) => $.logErr(e))
@@ -195,7 +345,7 @@ function yyxsjs(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : yyxsjsurl,
-        headers : JSON.parse($.getdata('yyxssphd')),
+        headers : JSON.parse(yyxssphd),
         body : 'coins=3'
        
 }      
@@ -225,18 +375,19 @@ let url = {
 function yyxssp(timeout = 0) {
   return new Promise((resolve) => {
     setTimeout( ()=>{
-      if (typeof $.getdata('yyxssphd') === "undefined") {
+      if (typeof yyxssphd === "undefined") {
         $.msg($.name,"",'请先获取阅友小说数据!😓',)
         $.done()
       }
 let url = {
         url : yyxsspurl,
-        headers : JSON.parse($.getdata('yyxssphd')),
+        headers : JSON.parse(yyxssphd),
         body : yyxsspbody,}
       $.post(url, async (err, resp, data) => {
         try {
-          
+    
     const result = JSON.parse(data)
+    
         if(result.code == 0){
           console.log('\n阅友小说视频奖励领取回执:成功🌝') 
            await yyxssp();
@@ -245,7 +396,7 @@ let url = {
 console.log('\n阅友小说视频奖励领取回执:失败🚫 '+result.msg)
 }
         } catch (e) {
-          //$.logErr(e, resp);
+          $.logErr(e, resp);
         } finally {
           resolve()
         }
@@ -262,13 +413,14 @@ function yyxssc(timeout = 0) {
 
 let url = {
         url : yyxsscurl,
-      headers : JSON.parse($.getdata('yyxsschd')),
+      headers : JSON.parse(yyxsschd),
         
        
 }      
       $.get(url, async (err, resp, data) => {
         try {
          const result = JSON.parse(data)
+	 //console.log('\n阅友小说阅读时长上传回执:'+data)
         if (result.code == 0) {
            
         } else {
@@ -290,7 +442,7 @@ function yyxscj(timeout = 0) {
 
 let url = {
         url : yyxscjurl,
-      headers : JSON.parse($.getdata('yyxscjhd')),
+      headers : JSON.parse(yyxscjhd),
         
        
 }      
@@ -304,7 +456,8 @@ let url = {
            
         } else {
        
-       console.log('\n阅友小说转盘抽奖回执:失败🚫 '+result.msg) 
+       console.log('\n阅友小说转盘抽奖回执:失败🚫 '+result.msg);
+	return;
         }} catch (e) {
           //$.logErr(e, resp);
         } finally {
@@ -317,26 +470,28 @@ let url = {
 //阅友小说信息
 function yyxsxx(timeout = 0) {
   return new Promise((resolve) => {
-//console.log(yyxsscurl)
+//console.log(yyxsxxurl)
 let url = {
         url : yyxsxxurl,
-      headers : JSON.parse($.getdata('yyxssphd')),
-        body : '',
-       
-}      
+      headers : JSON.parse(yyxssphd),
+        body : ''
+       }      
+
       $.post(url, async (err, resp, data) => {
         try {
-         const result = JSON.parse(data)
+        //console.log(data); 
+	const result = JSON.parse(data)
+	 
         if (result.code == 0) {
          // console.log(data)
-          console.log('\n阅友小说用户信息回执:成功🌝 \n\n------------- 当前账号信息 -------------\n用户id:'+result.data.uc.User.id+'\n金币数:'+result.data.uc.User.acctInfo.coins+'个，约等于:'+result.data.uc.User.acctInfo.coins / 10000+'元\n'+result.data.uc.dailyMsg+'\n'+result.data.uc.totalMsg)
-           
+          console.log('\n阅友小说用户信息回执:成功🌝 \n\n------------- 当前账号信息 -------------\n用户id:'+result.data.uc.User.id+'\n金币数:'+result.data.uc.User.acctInfo.coins+'个，约等于:'+result.data.uc.User.acctInfo.coins / 10000+'元\n'+result.data.uc.dailyMsg+'\n'+result.data.uc.totalMsg);
+          await notify.sendNotify( `阅友小说${$.index}🔔`, '【微信号】：'+result.data.uc.User.wechatNickName+'\n【用户id】：'+result.data.uc.User.id+'\n【金币数】：'+result.data.uc.User.acctInfo.coins+'个，约等于: '+result.data.uc.User.acctInfo.coins / 10000+'元\n'+'【阅读时长】：'+result.data.uc.dailyMsg+'，'+result.data.uc.totalMsg); 
            
         } else {
        
        console.log('\n阅友小说用户信息回执:失败🚫 '+msg) 
         }} catch (e) {
-          //$.logErr(e, resp);
+          $.logErr(e, resp);
         } finally {
           resolve()
         }
