@@ -1,28 +1,29 @@
 name: 书旗小说
 on:
   workflow_dispatch:
+  watch:
+    types: started
   schedule:
-    - cron: '20 */3 * * *'
+    - cron: '0 5,7 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest       
+    if: github.event.repository.owner.id == github.event.sender.id
     steps:
       
       - name: Checkout
-        run: |
-          git clone https://github.com/x101013416/123.git ~/123
+        uses: actions/checkout@v2
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - name: npm install
         run: |
-          cd ~/123
           npm install
           npm install cron
           npm install request
           curl ipinfo.io/json
+      
       - name: '【书旗小说】'
-        run: |
-          cd ~/123
+        run: |  
           node Task/sqxs.js
