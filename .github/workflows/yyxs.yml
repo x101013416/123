@@ -1,0 +1,47 @@
+name: yyxs
+
+
+on:
+  workflow_dispatch:
+  schedule:
+     - cron: '39 2 * * *'
+  watch:
+    types: started
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        YYXS_SPURL: ${{ secrets.YYXS_SPURL }}
+        YYXS_SPHD: ${{ secrets.YYXS_SPHD }}
+        YYXS_SPBODY: ${{ secrets.YYXS_SPBODY }}
+        YYXS_JSURL: ${{ secrets.YYXS_JSURL }}
+        YYXS_SCURL: ${{ secrets.YYXS_SCURL }}
+        YYXS_SCHD: ${{ secrets.YYXS_SCHD }}
+        YYXS_SCJURL: ${{ secrets.YYXS_SCJURL }}    
+        YYXS_SCJHD: ${{ secrets.YYXS_SCJHD }}     
+        YYXS_XXURL: ${{ secrets.YYXS_XXURL }}
+        TZ: Asia/shanghai
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+      - name: '运行 【yyxs】'
+        if: env.YYXS_SPHD
+        run: |
+          node task/yyxs.js
+        env:
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
