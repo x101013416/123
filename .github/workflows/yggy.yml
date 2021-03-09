@@ -26,7 +26,7 @@ jobs:
         run: |
           cd ~/123
           npm install
-      - name: '运行 【友阅小说】'
+      - name: '运行 【阳光果园】'
         if: env.YGGYHD
         run: |
           cd ~/123
