@@ -3,7 +3,7 @@ name: 腾讯自选股
 on:
   workflow_dispatch:
   schedule:
-     - cron: '39 8 * * *'
+     - cron: '39 15 * * *'
   watch:
     types: started
 jobs:
