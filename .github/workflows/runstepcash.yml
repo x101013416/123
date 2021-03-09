@@ -21,12 +21,12 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.TXTOKEN
+        if: env.TXKEY
         run: |
           cd ~/123
           npm install
       - name: '运行 【走路赚钱提现】'
-        if: env.TXTOKEN
+        if: env.TXKEY
         run: |
           cd ~/123
           node Task/runstepcash.js
