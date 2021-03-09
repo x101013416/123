@@ -1,10 +1,9 @@
-name: yyxs
-
+name: 阅友小说
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '39 2 * * *'
+     - cron: '*/15 0-15 * * *'
   watch:
     types: started
 jobs:
@@ -20,24 +19,27 @@ jobs:
         YYXS_SCHD: ${{ secrets.YYXS_SCHD }}
         YYXS_SCJURL: ${{ secrets.YYXS_SCJURL }}    
         YYXS_SCJHD: ${{ secrets.YYXS_SCJHD }}     
-        YYXS_XXURL: ${{ secrets.YYXS_XXURL }}
-        TZ: Asia/shanghai
+        YYXS_XXURL: ${{ secrets.YYXS_XXURL }} 		
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-        
+        run: |
+          git clone https://github.com/x101013416/123.git ~/123
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: npm install
-        run: |
-          npm install
-      - name: '运行 【yyxs】'
         if: env.YYXS_SPHD
         run: |
-          node task/yyxs.js
+          cd ~/123
+          npm install
+      - name: '运行 【阅友小说】'
+        if: env.YYXS_SPHD
+        run: |
+          cd ~/123
+          node Task/yyxs.js
         env:
+          
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
