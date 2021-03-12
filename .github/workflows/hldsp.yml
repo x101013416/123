@@ -32,7 +32,8 @@ jobs:
           cd ~/123
           node Task/hldsp.js
         env:
-          
+          hldspurl: ${{ secrets.hldspurl }}
+          hldsphd: ${{ secrets.hldsphd }}	
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
