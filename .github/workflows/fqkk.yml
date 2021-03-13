@@ -27,7 +27,7 @@ jobs:
         run: |
           npm install
       - name: '运行 【番茄看看】'
-        if: env.FQKKHD
+        if: env.FQKKURL
         run: |
           node Task/fqkk.js
         env:
