@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        FQKKURL: ${{ secrets.FQKK_URL }}
-        FQKKHD: ${{ secrets.FQKK_HD }}       
+        FQKKURL: ${{ secrets.FQKKURL }}
+        FQKKHD: ${{ secrets.FQKKHD }}       
         TZ: Asia/shanghai
     steps:
       - name: Checkout
