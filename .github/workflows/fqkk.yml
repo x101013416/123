@@ -1,46 +1,43 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-# 运行时间从北京时间12点半开始，每隔90分钟一次，执行6次，最后一次在晚上8点
-name: fqkk@feizao3 
+name: fqk
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 6-12/3 * * *'
-     - cron: '30 4-10/3 * * *'
+      - cron: '0 6-12/3 * * *'
+      - cron: '30 4-10/3 * * *'
   watch:
     types: started
-
 jobs:
   build:
-    env:  
-      PUSH_KEY: ${{ secrets.PUSH_KEY }}
-      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-      TG_USER_ID: ${{ secrets.TG_USER_ID }}
-
-
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        fqkkurl: ${{ secrets.fqkkurl }}
+        fqkkhd: ${{ secrets.fqkkhd }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        run: |
+          git clone https://github.com/x101013416/123.git ~/123
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: npm install
+        if: env.fqkkurl
         run: |
-          npm install -g npm
-          npm update
-
+          cd ~/123
+          npm install
       - name: '运行 【番茄看看】'
         if: env.fqkkurl
         run: |
+          cd ~/123
           node Task/fqkk.js
         env:
-          fqkkurl: ${{ secrets.fqkkurl }}
-          fqkkhd: ${{ secrets.fqkkhd }}
-
-
-
-
+          
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
