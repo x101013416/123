@@ -31,21 +31,21 @@ jobs:
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/x101013416/123.git ~/Scripts
+          git clone https://github.com/x101013416/123.git ~/123
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: npm install
         run: |
-          cd ~/Scripts
+          cd ~/123
           npm install -g npm
           npm update
 
       - name: '运行 【番茄看看】'
         if: env.fqkkurl
         run: |
-          cd ~/Scripts
+          cd ~/123
           node Task/11fqkk.js
         env:
           fqkkurl: ${{ secrets.fqkkurl }}
