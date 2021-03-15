@@ -7,7 +7,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: ranlv
+    types: conghua
 jobs:
   build:
 
