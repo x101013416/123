@@ -1,0 +1,45 @@
+name: 葱花视频5，10，30，100，200
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 1 *'
+  watch:
+    types: started
+  repository_dispatch:
+    types: chonghua.js
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+      - name: '运行 【葱花视频】'
+        run: |
+          node Task/conghua.js
+        env:
+          CHGETBODY_VIDEO: ${{ secrets.CHGETBODY_VIDEO }}
+          CHGETBODY_VIDEO2: ${{ secrets.CHGETBODY_VIDEO2 }}
+          CHGETBODY_SHARE: ${{ secrets.CHGETBODY_SHARE }}
+          CHGETBODY_TASKCENTER: ${{ secrets.CHGETBODY_TASKCENTER }}
+          CHGETBODY_TIMERED: ${{ secrets.CHGETBODY_TIMERED }}
+          CHGETBODY_SHAREREWARD: ${{ secrets.CHGETBODY_SHAREREWARD }}
+          CHGETBODY_UID: ${{ secrets.CHGETBODY_UID }}  
+          JD_DEBUG: ${{ secrets.JD_DEBUG }}
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+          IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
