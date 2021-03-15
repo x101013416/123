@@ -104,7 +104,19 @@ let indexLast = $.getdata('chgetbody_video_index');
 
 $.begin = indexLast ? parseInt(indexLast, 10) : 1;
 
-
+if ($.isNode()) {
+  //--添加自己的cookie
+  bodys=''
+  bodys2=''
+  taskcenterbodyArr.push('');
+  sharerewardbodyArr.push('');
+  timeredbodyArr.push('');
+  callbackurlArr.push('');
+  callbackkeyArr.push('');
+  cashbodyArr.push('');
+  cashkeyArr.push('');
+  }
+  
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先-观看视频-获取请求体,body容易失效建议50个...')
   $.done()
