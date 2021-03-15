@@ -1,0 +1,30 @@
+name: 微客
+
+on:
+  workflow_dispatch:
+  schedule:
+     - cron: '7,37 0-14 * * *'
+  watch:
+    types: started
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        WKZZ_HD: ${{ secrets.WKZZ_HD }}
+        WKZZ_URL: ${{ secrets.WKZZ_URL }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: npm install
+        if: env.WKZZ_HD
+        run: |
+          npm install
+      - name: '运行 【微客智造】'
+        if: env.WKZZ_HD
+        run: |
+          node Task/wkzz.js
