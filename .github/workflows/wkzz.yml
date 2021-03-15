@@ -31,7 +31,7 @@ jobs:
         if: env.WKZZ_HD
         run: |
           cd ~/123
-          node Task/WKZZ.js
+          node Task/wkzz.js
         env:
           
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
