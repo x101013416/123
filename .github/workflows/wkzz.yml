@@ -3,10 +3,10 @@ name: 微客
 on:
   workflow_dispatch:
   schedule:
-     - cron: '7,37 0-14 * * *'
+      - cron: '0 6-12/3 * * *'
+      - cron: '30 4-10/3 * * *'
   watch:
     types: started
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,16 +15,29 @@ jobs:
         WKZZ_HD: ${{ secrets.WKZZ_HD }}
         WKZZ_URL: ${{ secrets.WKZZ_URL }}
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 14.x
+      - name: Checkout
+        run: |
+          git clone https://github.com/x101013416/123.git ~/123
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 12.x
       - name: npm install
         if: env.WKZZ_HD
         run: |
+          cd ~/123
           npm install
-      - name: '运行 【微客智造】'
+      - name: '运行 【微客】'
         if: env.WKZZ_HD
         run: |
-          node Task/wkzz.js
+          cd ~/123
+          node Task/WKZZ.js
+        env:
+          
+          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
+          DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
+          DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
