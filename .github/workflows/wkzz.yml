@@ -22,12 +22,12 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.wkzzhd
+        if: env.wkzzurl
         run: |
           cd ~/123
           npm install
       - name: '运行 【微客站站】'
-        if: env.wkzzhd
+        if: env.wkzzurl
         run: |
           cd ~/123
           node Task/wkzz.js
