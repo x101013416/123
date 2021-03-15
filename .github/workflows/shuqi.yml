@@ -3,7 +3,7 @@ name: shuqi@ziye
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/4 0-23 * * *'
+    - cron: '7 0-23 * * *'
   watch:
     types: started
   repository_dispatch:
