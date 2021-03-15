@@ -18,6 +18,7 @@ boxjs链接  https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThx
 3.12-3 修复ck获取问题，修复ck方式一，可boxjs复制数据黏贴
 3.12 - 4 修复ck获取问题
 3.12-5 去除无用任务，精简ck至26条
+3.14 修复极速版书城报错
 
 ⚠️ 时间设置    7 0-23 * * *    每小时 1次就行 
 ⚠️一共2个软件  普通版15条 极速版11条  共      26个ck  👉 26条 Secrets 
@@ -63,7 +64,7 @@ hostname =render.shuqireader.com,ocean.shuqireader.com,jcollection.shuqireader.c
 
 #书旗小说获取header
 
-#用户名  视频任务 抽奖页面 极速版签到视频页  极速版书城 极速版视频任务
+#用户名  视频任务 抽奖页面 极速版签到视频页   极速版视频任务
 https:\/\/ocean\.shuqireader\.com\/* url script-request-header https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/shuqi.js
 #极速版书城
 http:\/\/activity-center-web\.shuqireader\.com\/* url script-request-header https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/shuqi.js
@@ -80,7 +81,7 @@ https:\/\/jcollection\.shuqireader\.com\/* url script-request-body https://raw.g
 
 #书旗小说获取header
 
-#用户名  视频任务 抽奖页面 极速版签到视频页  极速版书城 极速版视频任务
+#用户名  视频任务 抽奖页面 极速版签到视频页   极速版视频任务
 http-request https:\/\/ocean\.shuqireader\.com\/* url script-request-header script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/shuqi.js, requires-header=true, tag=书旗小说获取header
 #极速版书城
 http-request http:\/\/activity-center-web\.shuqireader\.com\/* url script-request-header script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/shuqi.js, requires-header=true, tag=书旗小说获取header
@@ -98,7 +99,7 @@ http-request https:\/\/jcollection\.shuqireader\.com\/* url script-request-body 
 
 #书旗小说获取header
 
-#用户名  视频任务 抽奖页面 极速版签到视频页  极速版书城 极速版视频任务
+#用户名  视频任务 抽奖页面 极速版签到视频页   极速版视频任务
 书旗小说获取header = type=https:\/\/ocean\.shuqireader\.com\/*,script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/shuqi.js
 #极速版书城
 书旗小说获取header = type=http:\/\/activity-center-web\.shuqireader\.com\/*,script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/shuqi.js
@@ -114,7 +115,7 @@ http-request https:\/\/jcollection\.shuqireader\.com\/* url script-request-body 
 
 
 */
-GXRZ = '3.12-5 去除无用任务，精简ck至26条'
+GXRZ = '3.14 修复极速版书城报错'
 const $ = Env("书旗小说");
 $.idx = ($.idx = ($.getval('shuqiSuffix') || '1') - 1) > 0 ? ($.idx + 1 + '') : ''; // 账号扩展字符
 const notify = $.isNode() ? require("./sendNotify") : ``;
@@ -949,6 +950,43 @@ function GetCookie() {
             };
         }
     }
+	
+	    //获取极速版书城
+    if ($request && $request.url.indexOf("convert") >= 0 && $request.body.indexOf("actTaskId=344") >= 0 && $request.body.indexOf("appVer=1") >= 0) {
+        const shuqijsbookbodyVal = $request.body;
+        if (shuqijsbookbodyVal) {
+            if (XH == 1) {
+                cookie()
+
+                function cookie() {
+                    bodys = $.getdata('shuqijsbookbody' + $.idx);
+                    if (bodys) {
+                        if ($.idx == '') {
+                            $.idx = 2
+                            cookie()
+                        } else {
+                            $.idx = $.idx + 1
+                            cookie()
+                        }
+                    } else {
+                        $.setdata(shuqijsbookbodyVal, "shuqijsbookbody" + $.idx);
+                        $.log(
+                            `[${$.name + $.idx}] 获取极速版书城shuqijsbookbodyVal✅: 成功,shuqijsbookbodyVal: ${shuqijsbookbodyVal}`
+                        );
+                        $.msg($.name + $.idx, `获取极速版书城shuqijsbookbodyVal: 成功🎉`, ``);
+                        $.done();
+                    };
+                }
+            } else {
+                $.setdata(shuqijsbookbodyVal, "shuqijsbookbody" + $.idx);
+                $.log(
+                    `[${$.name + $.idx}] 获取极速版书城shuqijsbookbodyVal✅: 成功,shuqijsbookbodyVal: ${shuqijsbookbodyVal}`
+                );
+                $.msg($.name + $.idx, `获取极速版书城shuqijsbookbodyVal: 成功🎉`, ``);
+                $.done();
+            };
+        }
+    }
     //获取视频
     if ($request && $request.url.indexOf("prize") >= 0 && $request.url.indexOf("lottery") >= 0 && $request.body.indexOf("deliveryId=525") >= 0) {
         const shuqispbodyVal = $request.body;
@@ -1536,42 +1574,7 @@ function GetCookie() {
             };
         }
     }
-    //获取极速版书城
-    if ($request && $request.url.indexOf("convert") >= 0 && $request.body.indexOf("actTaskId=344") >= 0 && $request.body.indexOf("appVer=1") >= 0) {
-        const shuqijsbookbodyVal = $request.body;
-        if (shuqijsbookbodyVal) {
-            if (XH == 1) {
-                cookie()
 
-                function cookie() {
-                    bodys = $.getdata('shuqijsbookbody' + $.idx);
-                    if (bodys) {
-                        if ($.idx == '') {
-                            $.idx = 2
-                            cookie()
-                        } else {
-                            $.idx = $.idx + 1
-                            cookie()
-                        }
-                    } else {
-                        $.setdata(shuqijsbookbodyVal, "shuqijsbookbody" + $.idx);
-                        $.log(
-                            `[${$.name + $.idx}] 获取极速版书城shuqijsbookbodyVal✅: 成功,shuqijsbookbodyVal: ${shuqijsbookbodyVal}`
-                        );
-                        $.msg($.name + $.idx, `获取极速版书城shuqijsbookbodyVal: 成功🎉`, ``);
-                        $.done();
-                    };
-                }
-            } else {
-                $.setdata(shuqijsbookbodyVal, "shuqijsbookbody" + $.idx);
-                $.log(
-                    `[${$.name + $.idx}] 获取极速版书城shuqijsbookbodyVal✅: 成功,shuqijsbookbodyVal: ${shuqijsbookbodyVal}`
-                );
-                $.msg($.name + $.idx, `获取极速版书城shuqijsbookbodyVal: 成功🎉`, ``);
-                $.done();
-            };
-        }
-    }
 }
 console.log(
     `================== 脚本执行 - 北京时间(UTC+8)：${new Date(
@@ -2582,13 +2585,13 @@ function jsresource(timeout = 0) {
                     if (shuqijsbookurlVal && shuqijsbookurlVal != '') {
                         if (jsbookss.status == 0) {
                             taskbook = `reward`
-                            await jsbook(); //每日书城
+                            await jsbooklist(); //每日书城
                         }
                     }
                     if (shuqijsbookbodyVal && shuqijsbookbodyVal != '') {
                         if (jsbookss.status == 2 && jsbookss.prizeStatus == 4) {
                             taskbook = `convert`
-                            await jsbook(); //书城领奖
+                            await jsbooklj; //书城领奖
                         } else if (jsbookss.status == 2 && jsbookss.prizeStatus == 2) {
                             console.log(`${jsbookss.taskTitle}：${jsbookss.rewards[0].desc},已完成\n`);
                             $.message += `【${jsbookss.taskTitle}】：${jsbookss.rewards[0].desc},已完成\n`;
