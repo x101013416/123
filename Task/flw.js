@@ -4,7 +4,6 @@ TG频道地址  https://t.me/ziyescript
 TG交流群   https://t.me/joinchat/AAAAAE7XHm-q1-7Np-tF3g
 boxjs链接  https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/ziye.boxjs.json
 转载请备注个名字，谢谢
-
 ⚠️返利网
 1.20 调整为完整版
 1.23 增加签到任务等
@@ -20,65 +19,42 @@ boxjs链接  https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThx
 2.17-2 修改判定，进文章直接获取body,修复判定
 3.3 去除阅读提现，请手动提现
 3.8 替换为循环获取ck
-
+3.17 适配返利网
 ⚠️返利网实名  验证码接不到  可以稍后再试，或者联系客服，或者等第二天， 姓名务必与支付宝姓名一致，其他可以乱写       但是已经填写身份证号后想要换个实名，务必输入原身份证号，    1个支付宝只可以绑定3个返利网
-
-
 ⚠️一共5个位置 5个ck  👉 6条 Secrets 
 多账号换行
 第一步 添加  hostname=huodong.fanli.com,passport.fanli.com,gw.fanli.com,
-
 第二步 添加重写 
-
 点击 我的 获取flwurlVal
 flwurlVal 👉FL_flwURL
-
 点击 首页 签到赚钱 获取flwheaderVal
 flwheaderVal 👉FL_flwHEADER
-
 注释header重写 点击 首页 签到赚钱 视频任务 获取flwspbodyVal
 flwurlVal 👉FL_flwspBODY
-
 注释header重写 点击 首页 签到赚钱 火山热门视频 获取flwqwbodyVal
 flwqwbodyVal 👉FL_flwqwBODY
-
 设置提现变量 可设置 0.3以上 务必关注官方公众号，并且手动领取红包
 CASH  👉  FL_CASH
-
 设置兑换变量 可设置0 5 50 100   默认0  不兑换
 DHCASH  👉  FL_DHCASH
-
 注释header重写 点击 首页 签到赚钱 去阅读赚钱 看文章 获取flwydbodyVal（最多20个body）
 flwydbodyVal 👉FL_flwydBODY
-
-
-
 ⚠️主机名以及重写👇
 hostname=huodong.fanli.com,passport.fanli.com,gw.fanli.com,
-
 ############## 圈x
 #返利网获取header
 https:\/\/(huodong\.fanli\.com\/*||passport\.fanli\.com\/*||gw\.fanli\.com\/*) url script-request-header https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/flw.js   
 #返利网获取body
 https:\/\/(huodong\.fanli\.com\/*||passport\.fanli\.com\/*||gw\.fanli\.com\/*) url script-request-body https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/flw.js   
-
 ############## loon
 #返利网获取header
 http-request https:\/\/(huodong\.fanli\.com\/*||passport\.fanli\.com\/*||gw\.fanli\.com\/*) script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/flw.js, requires-header=true, tag=返利网获取header
-
 http-request https:\/\/(huodong\.fanli\.com\/*||passport\.fanli\.com\/*||gw\.fanli\.com\/*) script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/flw.js,requires-body=1,max-size=0, tag=返利网获取body
-
 ############## surge
 #返利网获取header
 返利网获取header = type=http-request,pattern=https:\/\/(huodong\.fanli\.com\/*||passport\.fanli\.com\/*||gw\.fanli\.com\/*),script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/flw.js
-
 #返利网获取body
 返利网获取body = type=http-request,pattern=https:\/\/(huodong\.fanli\.com\/*||passport\.fanli\.com\/*||gw\.fanli\.com\/*),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThxc1RBVUE/main/Task/flw.js
-
-
-
-
-
 */
 const $ = Env("返利网");
 $.idx = ($.idx = ($.getval('flwSuffix') || '1') - 1) > 0 ? ($.idx + 1 + '') : ''; // 账号扩展字符
@@ -240,8 +216,14 @@ function GetCookie() {
 
             function cookie() {
                 bodys = $.getdata('flwurl' + $.idx);
-                if (bodys) {
-                    if ($.idx == '') {
+                 if (bodys) {
+                    if (bodys.indexOf(flwurlVal) >= 0) {
+                        $.log(
+                            `[${$.name + $.idx}] flwurlVal已存在✅: flwurlVal: ${flwurlVal}`
+                        );
+                        $.msg($.name + $.idx, `flwurlVal已存在: 🎉`, ``);
+                        $.done();
+                    } else if ($.idx == '') {
                         $.idx = 2
                         cookie()
                     } else {
@@ -271,8 +253,14 @@ function GetCookie() {
 
             function cookie() {
                 bodys = $.getdata('flwheader' + $.idx);
-                if (bodys) {
-                    if ($.idx == '') {
+                 if (bodys) {
+                    if (bodys.indexOf(flwheaderVal) >= 0) {
+                        $.log(
+                            `[${$.name + $.idx}] flwheaderVal已存在✅: flwheaderVal: ${flwheaderVal}`
+                        );
+                        $.msg($.name + $.idx, `flwheaderVal已存在: 🎉`, ``);
+                        $.done();
+                    } else if ($.idx == '') {
                         $.idx = 2
                         cookie()
                     } else {
@@ -303,8 +291,14 @@ function GetCookie() {
 
             function cookie() {
                 bodys = $.getdata('flwspbody' + $.idx);
-                if (bodys) {
-                    if ($.idx == '') {
+                 if (bodys) {
+                    if (bodys.indexOf(flwspbodyVal) >= 0) {
+                        $.log(
+                            `[${$.name + $.idx}] flwspbodyVal已存在✅: flwspbodyVal: ${flwspbodyVal}`
+                        );
+                        $.msg($.name + $.idx, `flwspbodyVal已存在: 🎉`, ``);
+                        $.done();
+                    } else if ($.idx == '') {
                         $.idx = 2
                         cookie()
                     } else {
@@ -337,8 +331,14 @@ function GetCookie() {
 
             function cookie() {
                 bodys = $.getdata('flwqwbody' + $.idx);
-                if (bodys) {
-                    if ($.idx == '') {
+                 if (bodys) {
+                    if (bodys.indexOf(flwqwbodyVal) >= 0) {
+                        $.log(
+                            `[${$.name + $.idx}] flwqwbodyVal已存在✅: flwqwbodyVal: ${flwqwbodyVal}`
+                        );
+                        $.msg($.name + $.idx, `flwqwbodyVal已存在: 🎉`, ``);
+                        $.done();
+                    } else if ($.idx == '') {
                         $.idx = 2
                         cookie()
                     } else {
@@ -562,7 +562,7 @@ async function all() {
         }
         await flwtask(); //任务列表	  
         if ($.flwtask.data && qw.status == 0) {
-            dd = qw.new_point / 2
+            dd = qw.new_point * 2
         } else if ($.flwtask.data && $.flwtask.data && sp.complete_count != 7) {
             dd = (7 - sp.complete_count) * 2
         }
@@ -1009,7 +1009,7 @@ function flwlsp(timeout = 0) {
 function flwqw(timeout = 0) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            for (let i = 0; i < 200; i++) {
+            for (let i = 0; i < 100; i++) {
                 $.index = i + 1
                 setTimeout(() => {
                     flwqwurlVal = `https://gw.fanli.com/app/v1/videofeed/report.htm?uid=${uid}&token=${token}&nonce=&t=${ts()}&pageType=0&sn=${sn}&src=1&v=7.16.6.1&abtest=${abtest}`
@@ -1023,7 +1023,7 @@ function flwqw(timeout = 0) {
                             if (logs) $.log(`${O}, 趣味视频🚩: ${data}`);
                             $.flwqw = JSON.parse(data);
                             if ($.flwqw.status && $.flwqw.status == 1) {
-                                console.log(`已观看第${i+1}次趣味视频，共领取${(i+1)*2}金币\n`);
+                                console.log(`已观看第${i+1}次趣味视频，共领取${(i+1)}金币\n`);
                             }
                         } catch (e) {
                             $.logErr(e, resp);
@@ -1031,7 +1031,7 @@ function flwqw(timeout = 0) {
                             resolve()
                         }
                     })
-                }, i * 1000);
+                }, i * 2000);
             }
         }, timeout)
     })
