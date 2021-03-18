@@ -45,7 +45,7 @@ boxjs链接  https://raw.githubusercontent.com/6Svip120apk69/gitee_q8qsTAUA_cThx
 3.8 替换为循环获取ck
 3.9 因视频功能无效，故取消视频，默认开启直播
 3.17 修复视频功能， 暂时设置ck上限为10
-3.18 修复视频错误
+3.18 修复视频错误，修复小错误
 ⚠️一共1个位置 3个ck  👉 7条 Secrets 
 多账号换行
 
@@ -123,7 +123,7 @@ http-requires https:\/\/veishop\.iboxpay\.com\/nf_gateway\/nf_customer_activity\
 
 
 */
-GXRZ = '3.18修复视频错误'
+GXRZ = '3.18 修复视频错误，修复小错误'
 const $ = Env("笑谱");
 $.idx = ($.idx = ($.getval('iboxpaySuffix') || '1') - 1) > 0 ? ($.idx + 1 + '') : ''; // 账号扩展字符
 const notify = $.isNode() ? require("./sendNotify") : ``;
@@ -953,13 +953,13 @@ function video(timeout = 0) {
     return new Promise((resolve) => {
         setTimeout(() => {
             var inss = 0;
-            for (let i = 0; i < videoBODY.length; i++) {
+            for (let i = 1; i < videoBODY.length; i++) {
                 setTimeout(() => {
+                    token = videoHEADER[i].split(`"token":"`)[1].split(`",`)[0]
+                    videoHEADER2 = videoHEADER[i].replace(`${token}`, `${TOKEN}`)
+                    SPID = videoBODY[i].split(`"actId":"`)[1].split(`"}`)[0]
+                    videoBODY2 = videoBODY[i].replace(`${SPID}`, `${spid.actId}`)
 
-                    token = videoHEADER[i+1].split(`"token":"`)[1].split(`",`)[0]
-                    videoHEADER2 = videoHEADER[i+1].replace(`${token}`, `${TOKEN}`)
-                    SPID = videoBODY[i+1].split(`"actId":"`)[1].split(`"}`)[0]
-                    videoBODY2 = videoBODY[i+1].replace(`${SPID}`, `${spid.actId}`)
 
                     let url = {
                         url: `https://veishop.iboxpay.com/nf_gateway/nf_customer_activity/day_cash/v1/give_gold_coin_by_video.json`,
@@ -972,7 +972,7 @@ function video(timeout = 0) {
                             $.video = JSON.parse(data);
 
                             if ($.video.data && $.video.data.goldCoinNumber != 0) {
-                                console.log(`开始领取第${i+2}次视频奖励，获得${$.video.data.goldCoinNumber}金币,等待${VT/1000}秒继续\n`);
+                                console.log(`开始领取第${i+1}次视频奖励，获得${$.video.data.goldCoinNumber}金币,等待${VT/1000}秒继续\n`);
                                 inss += $.video.data.goldCoinNumber;
                             }
                         } catch (e) {
