@@ -83,60 +83,6 @@ let ysmtx = $.getdata('ysmtx')
 let ysmkey = '',xz = '',xx =''
 
 
-
-if ($.isNode()) {
-   if (process.env.YSM_URL && process.env.YSM_URL.indexOf('#') > -1) {
-   ysmurlArr = process.env.YSM_URL.split('#');
-   console.log(`您选择的是用"#"隔开\n`)
-  }
-  else if (process.env.YSM_URL && process.env.YSM_URL.indexOf('\n') > -1) {
-   ysmurlArr = process.env.YSM_URL.split('\n');
-   console.log(`您选择的是用换行隔开\n`)
-  } else {
-   ysmurlArr = process.env.YSM_URL.split()
-  };
-  if (process.env.YSM_HD && process.env.YSM_HD.indexOf('#') > -1) {
-   ysmhdArr = process.env.YSM_HD.split('#');
-   console.log(`您选择的是用"#"隔开\n`)
-  }
-  else if (process.env.YSM_HD && process.env.YSM_HD.indexOf('\n') > -1) {
-   ysmhdArr = process.env.YSM_HD.split('\n');
-   console.log(`您选择的是用换行隔开\n`)
-  } else {
-   ysmhdArr = process.env.YSM_HD.split()
-  };
-  if (process.env.YSM_BD && process.env.YSM_BD.indexOf('#') > -1) {
-   ysmbodyArr = process.env.YSM_BD.split('#');
-   console.log(`您选择的是用"#"隔开\n`)
-  }
-  else if (process.env.YSM_BD && process.env.YSM_BD.indexOf('\n') > -1) {
-   ysmbodyArr = process.env.YSM_BD.split('\n');
-   console.log(`您选择的是用换行隔开\n`)
-  } else {
-   ysmbodyArr = process.env.YSM_BD.split()
-  };	
-  if (process.env.YSM2_BD && process.env.YSM2_BD.indexOf('#') > -1) {
-   ysm2bodyArr = process.env.YSM2_BD.split('#');
-   console.log(`您选择的是用"#"隔开\n`)
-  }
-  else if (process.env.YSM2_BD && process.env.YSM2_BD.indexOf('\n') > -1) {
-   ysm2bodyArr = process.env.YSM2_BD.split('\n');
-   console.log(`您选择的是用换行隔开\n`)
-  } else {
-   ysm2bodyArr = process.env.YSM2_BD.split()
-  };		
-  if (process.env.YSM_TX && process.env.YSM_TX.indexOf('#') > -1) {
-   ysmtxArr = process.env.YSM_TX.split('#');
-   console.log(`您选择的是用"#"隔开\n`)
-  }
-  else if (process.env.YSM_TX && process.env.YSM_TX.indexOf('\n') > -1) {
-   ysmtxArr = process.env.YSM_TX.split('\n');
-   console.log(`您选择的是用换行隔开\n`)
-  } else {
-   ysmtxArr = process.env.YSM_TX.split()
-  };	
-
-
 !(async () => {
   if (typeof $request !== "undefined") {
     await ysmck()
@@ -154,11 +100,6 @@ if ($.isNode()) {
     ysm2bodyArr.push($.getdata(`ysm2body${i}`))
     ysmtxArr.push($.getdata(`ysmtx${i}`))
   }
-          
-  ysmurlArr = ['http://erd.zhangchaofan.xyz/yunonline/v1/task']
-  ysmhdArr = ['{"Accept":"application/json, text/javascript, */*; q=0.01","Origin":"http://erd.zhangchaofan.xyz","Accept-Encoding":"gzip, deflate","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8","Connection":"keep-alive","Host":"erd.zhangchaofan.xyz","User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000237) NetType/4G Language/zh_CN","Referer":"http://erd.zhangchaofan.xyz/yunonline/v14209/redirect/eyJpdiI6IkM5NkRvajNxOVkyalpDQmZSVVdkWVE9PSIsInZhbHVlIjoiVW1ibjkwc3kwa0oxbUZveW0xWUtQTkU1S0ZVRHRsUVlnRElpUHgzb2JLXC9aXC9kMVZJT0g2NG83cWt1ZjFBTXJYK2U4WktGSFBPUEowc3h1S2VRNHlIVDB4Q09iWXM0U2N6VWxiR2YzY3NNRXRRa25SY2loVVJSQTlwK0F4cDhQUDlyNjBBWE5mNFBuaEd2UXNJVnZsZ3BJZmFVSFl2UTFLbGhhcFk2VFZlN2lGV2Rnc1M5VTVSbW12MlNUME9FTVlsN0loOVZcL09wWFh4ck9Xa3IxTzhVZjJHaUtodk95RWlaWmtwOGFLNU04eWNuU1FVMUpsZURqSzFRVnlVNldsUVZSbnd0Z0lSb0xwWXNxck41YWtVakxIMnBEY0MyM0dXZFFKVFYrcjZTN3M9IiwibWFjIjoiNjU1OTZhMWM1ZjMzZTU4ZThlOTQ3ZGZkZWViMDZkZDUwMDY2ZjE2N2NmNDE3ZmM3M2M4YzRiNGY0MTg0N2ZkOCJ9?openid=oksnzwWG7xMH3DKIy1_EdByiyou8&secret=eyJpdiI6IkM5NkRvajNxOVkyalpDQmZSVVdkWVE9PSIsInZhbHVlIjoiVW1ibjkwc3kwa0oxbUZveW0xWUtQTkU1S0ZVRHRsUVlnRElpUHgzb2JLXC9aXC9kMVZJT0g2NG83cWt1ZjFBTXJYK2U4WktGSFBPUEowc3h1S2VRNHlIVDB4Q09iWXM0U2N6VWxiR2YzY3NNRXRRa25SY2loVVJSQTlwK0F4cDhQUDlyNjBBWE5mNFBuaEd2UXNJVnZsZ3BJZmFVSFl2UTFLbGhhcFk2VFZlN2lGV2Rnc1M5VTVSbW12MlNUME9FTVlsN0loOVZcL09wWFh4ck9Xa3IxTzhVZjJHaUtodk95RWlaWmtwOGFLNU04eWNuU1FVMUpsZURqSzFRVnlVNldsUVZSbnd0Z0lSb0xwWXNxck41YWtVakxIMnBEY0MyM0dXZFFKVFYrcjZTN3M9IiwibWFjIjoiNjU1OTZhMWM1ZjMzZTU4ZThlOTQ3ZGZkZWViMDZkZDUwMDY2ZjE2N2NmNDE3ZmM3M2M4YzRiNGY0MTg0N2ZkOCJ9","Accept-Language":"zh-cn","Content-Length":"733","X-Requested-With":"XMLHttpRequest"}']      
-  ysm2bodyArr = ['openid=oksnzwWG7xMH3DKIy1_EdByiyou8&time=23']        
-  ysmbodyArr = ['"secret=eyJpdiI6IkJqcEJxSEJLSUZ6RjlWbzZNK0NCXC93PT0iLCJ2YWx1ZSI6Iis2cUE3KzhxeUpCZllEOXZCZ3dhMEc3bERTWmFKYzhTXC9BNzlFQTBQc2RcL0NaUVpBUk5JVjJXdCs0K3hFZ1NKaWRva1dLNnNQd1RBcTJzWW0zQkJDdEliQ2NjUDMrMVwvdjhveDZPbkN1dVltWmtDOTBpYjljQ1lmNlVJdE8zME1sUFhPVXlyWXJXXC90dCtFTVhTYzZLdUF4bGo4VFl1d0JvNUU4TStmaUVxaTBpREVURlwvS09uTmp4WmNLQW5lbFVCSjRRSkg3SEg5V1hXM3F1bDBDcVppWXB0Y21cL3RLQ2E1R1F0WnJ2QTU4aDEwZ1QxbDBhbG5tNU9yWGV4U0xQd2V0ZmdMSExHWTVwcXQ5c2FId0FEUGRJdHZhVXhTTVwvU3JRREJISTdSaWp6SzhvRVczWUVhanRiNGVkQzI2OVE3SXBYelBhRVRLVjhUQkVSbXpwcE1sUjZkZ2QxNUpnVTFqdjU5cUFOOXlxSzZMMThjeU9xemJST0txTWNwZSs1c3JPQUlHekl1bE5paGxSVVdGTGthT3l3PT0iLCJtYWMiOiIyOWRhNmViOWUxZmYxYTc3N2RkOGQ5ZmM0MWYzYjdhZGJmMzVlMGIxODAyMjBkY2EzMzE1ZWEyZWRmOWM1ZDlmIn0%253D&type=read"']        
     console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
       for (let i = 0; i < ysmhdArr.length; i++) {
         if (ysmhdArr[i]) {
@@ -398,7 +339,7 @@ let url = {
 function ysmxx(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
-        url : 'http://erd.zhangchaofan.xyz/yunonline/v1/gold?openid='+ysmtx.match(/openid=(.*?)ua/)[1]+'&time=1616003606000',
+        url : 'http://erd.zhangchaofan.xyz/yunonline/v1/gold?openid='+ysm2body.match(/openid=(.*?)&/)[1]+'&time=1616003606000',
         headers : JSON.parse(ysmhd),
        
 }      
@@ -426,7 +367,7 @@ let url = {
 function ysmyh(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
-        url : 'http://erd.zhangchaofan.xyz/yunonline/v1/gold?openid='+ysmtx.match(/openid=(.*?)ua/)[1]+'&time=1616003606000',
+        url : 'http://erd.zhangchaofan.xyz/yunonline/v1/gold?openid='+ysm2body.match(/openid=(.*?)&/)[1]+'&time=1616003606000',
         headers : JSON.parse(ysmhd),
        
 }      
