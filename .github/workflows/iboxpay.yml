@@ -13,7 +13,9 @@ jobs:
     env:
         XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
         XP_live: ${{ secrets.XP_live }}
-        XP_CASH: ${{ secrets.XP_CASH }}		
+        XP_CASH: ${{ secrets.XP_CASH }}	
+        XP_iboxpayvideoHEADER: ${{ secrets.XP_iboxpayvideoHEADER }}
+        XP_iboxpayvideoBODY: ${{ secrets.XP_iboxpayvideoBODY }}
         
     steps:
       - name: Checkout
