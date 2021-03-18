@@ -3,7 +3,7 @@ name: 云扫码
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/15 0-15 * * *'
+     - cron: '35 2-14 * * *'
   watch:
     types: started
 jobs:
