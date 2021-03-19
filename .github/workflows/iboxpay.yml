@@ -15,8 +15,6 @@ jobs:
         XP_iboxpayvideoHEADER: ${{ secrets.XP_iboxpayvideoHEADER }}	
         XP_iboxpayvideoBODY : ${{ secrets.XP_iboxpayvideoBODY }}
         XP_CASH : ${{ secrets.XP_CASH }}
-        XP_live : ${{ secrets.XP_live }}
-        XP_phone : ${{ secrets.XP_phone }} 
     steps:
       - name: Checkout
         run: |
@@ -29,12 +27,11 @@ jobs:
         if: env.XP_refreshTOKEN
         run: |
           cd ~/123
-          git checkout 123
           npm install
       - name: '运行 【笑谱】'
         if: env.XP_refreshTOKEN
         run: |
-          cd ~/workflows
+          cd ~/123
           node Task/iboxpay.js
         env:
           
