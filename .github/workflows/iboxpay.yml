@@ -6,50 +6,40 @@ name: 笑谱
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 * * * *'
+     - cron: '0,30 0-15,22,23 * * *'
   watch:
     types: started
 jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
+    env:
+        
+        XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
+        XP_CASH: ${{ secrets.XP_CASH }}
+        XP_live: ${{ secrets.XP_live }}
+        XP_iboxpayvideoHEADER: ${{ secrets.XP_iboxpayvideoHEADER }}
+        XP_iboxpayvideoBODY: ${{ secrets.XP_iboxpayvideoBODY }}
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/qiandaoniaoren/ziye66666.git ~/JavaScript
+          git clone https://github.com/x101013416/123.git ~/123
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: npm install
-        # if: env.XP_iboxpayHEADER
+      - name: npm instal
+      
         run: |
-          cd ~/JavaScript
+          cd ~/123
           npm install
       - name: '运行 【笑谱】'
-        # if: env.XP_iboxpayHEADER
+        
         run: |
-          cd ~/JavaScript
+          cd ~/123
           node Task/iboxpay.js
         env:
-          XP_iboxpayHEADER: ${{ secrets.XP_iboxpayHEADER }}
-          XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
-          XP_CASH: '15'
-          XP_live: '1'
-      - name: '运行 【笑谱】'
-        # if: env.XP_iboxpayHEADER
-        run: |
-          cd ~/JavaScript
-          for ((a=1; a<=15; a++))
-          do
-            node Task/iboxpay.js &
-            sleep 15m
-          done
-        env:
-          XP_iboxpayHEADER: ${{ secrets.XP_iboxpayHEADER }}
-          XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
-          XP_CASH: '1'
-          XP_live: '2'
+          
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
