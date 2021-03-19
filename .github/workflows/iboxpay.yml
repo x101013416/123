@@ -1,3 +1,6 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: 笑谱
 
 on:
@@ -10,32 +13,43 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
-    env:
-        XP_iboxpayHEADER: ${{ secrets.XP_iboxpayHEADER }}
-        XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
-        XP_iboxpayvideoBODY: ${{ secrets.XP_iboxpayvideoBODY }}
-        XP_live: ${{ secrets.XP_live }}
-        XP_CASH: ${{ secrets.XP_CASH }} 		
     steps:
       - name: Checkout
         run: |
-          git clone https://github.com/x101013416/123.git ~/123
+          git clone https://github.com/qiandaoniaoren/ziye66666.git ~/JavaScript
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: npm install
-        if: env.XP_refreshTOKEN
+        # if: env.XP_iboxpayHEADER
         run: |
-          cd ~/123
+          cd ~/JavaScript
           npm install
       - name: '运行 【笑谱】'
-        if: env.XP_refreshTOKEN
+        # if: env.XP_iboxpayHEADER
         run: |
-          cd ~/123
+          cd ~/JavaScript
           node Task/iboxpay.js
         env:
-          
+          XP_iboxpayHEADER: ${{ secrets.XP_iboxpayHEADER }}
+          XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
+          XP_CASH: '15'
+          XP_live: '1'
+      - name: '运行 【笑谱】'
+        # if: env.XP_iboxpayHEADER
+        run: |
+          cd ~/JavaScript
+          for ((a=1; a<=15; a++))
+          do
+            node Task/iboxpay.js &
+            sleep 15m
+          done
+        env:
+          XP_iboxpayHEADER: ${{ secrets.XP_iboxpayHEADER }}
+          XP_refreshTOKEN: ${{ secrets.XP_refreshTOKEN }}
+          XP_CASH: '1'
+          XP_live: '2'
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
