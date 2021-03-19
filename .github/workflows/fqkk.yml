@@ -1,9 +1,10 @@
 name: 番茄看看
 
+
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/15 0-15 * * *'
+     - cron: '2 1-11 * * *'
   watch:
     types: started
 jobs:
@@ -11,28 +12,25 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        FQKKHD: ${{ secrets.FQKKHD }}
-        FQKKURL: ${{ secrets.FQKKURL }} 		
+        FQKK_URL: ${{ secrets.FQKK_URL }}
+        FQKK_HD: ${{ secrets.FQKK_HD }}       
+        TZ: Asia/shanghai
     steps:
       - name: Checkout
-        run: |
-          git clone https://github.com/x101013416/123.git ~/123
+        uses: actions/checkout@v1
+        
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: npm install
-        if: env.FQKKHD
         run: |
-          cd ~/123
           npm install
       - name: '运行 【番茄看看】'
-        if: env.FQKKHD
+        if: env.FQKK_HD
         run: |
-          cd ~/123
           node Task/fqkk.js
         env:
-          
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
