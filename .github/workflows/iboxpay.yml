@@ -20,6 +20,7 @@ jobs:
         XP_live: ${{ secrets.XP_live }}
         XP_iboxpayvideoHEADER: ${{ secrets.XP_iboxpayvideoHEADER }}
         XP_iboxpayvideoBODY: ${{ secrets.XP_iboxpayvideoBODY }}
+        BARK_PUSH: ${{ secrets.BARK_PUSH }}
     steps:
       - name: Checkout
         run: |
