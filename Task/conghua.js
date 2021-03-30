@@ -54,7 +54,7 @@ const notifyInterval = 1; //0为关闭通知，1为所有通知,默认为0
 
 let task = '';
 let tz = '';
-let uid = '384041'
+let uid = '263156'
 let headerVal = {
   'User-Agent': `cong hua shi pin/1.4.6 (iPhone; iOS 14.1; Scale/2.00)`,
   'Accept': `*/*`,
